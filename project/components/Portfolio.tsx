@@ -89,4 +89,53 @@ const Portfolio = () => {
   ];
 
   return (
-      <section id="portfolio" className=
+      <section id="portfolio" className="py-16 px-4 bg-white text-black">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl font-bold mb-12 text-center">Portfolio</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {projects.map((project) => (
+                <motion.div
+                    key={project.id}
+                    whileHover={{ scale: 1.05 }}
+                    className="bg-gray-100 rounded-lg shadow-md overflow-hidden cursor-pointer"
+                    onClick={() => setSelectedProject(project)}
+                >
+                  <img src={project.image} alt={project.title} className="w-full h-48 object-cover" />
+                  <div className="p-4">
+                    <h3 className="text-xl font-semibold">{project.title}</h3>
+                    <p className="text-gray-600">{project.category}</p>
+                  </div>
+                </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {selectedProject && (
+            <div className="fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center">
+              <div className="bg-white p-6 rounded-lg max-w-xl w-full relative">
+                <button
+                    onClick={() => setSelectedProject(null)}
+                    className="absolute top-4 right-4 text-gray-500 hover:text-black"
+                >
+                  <X size={24} />
+                </button>
+                <img src={selectedProject.image} alt={selectedProject.title} className="w-full h-56 object-cover rounded-md mb-4" />
+                <h3 className="text-2xl font-bold mb-2">{selectedProject.title}</h3>
+                <p className="text-gray-700 mb-2">{selectedProject.description}</p>
+                <p className="text-sm text-gray-500 mb-1"><strong>Client:</strong> {selectedProject.client}</p>
+                <p className="text-sm text-gray-500 mb-1"><strong>Year:</strong> {selectedProject.year}</p>
+                <div className="flex flex-wrap gap-2 mt-2">
+                  {selectedProject.technologies.map((tech) => (
+                      <span key={tech} className="bg-gray-200 px-2 py-1 rounded text-sm">
+                  {tech}
+                </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+        )}
+      </section>
+  );
+};
+
+export default Portfolio;
