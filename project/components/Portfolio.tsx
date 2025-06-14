@@ -6,8 +6,11 @@ import { useRef, useState } from 'react';
 import { X, ExternalLink } from 'lucide-react';
 
 const Portfolio = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, threshold: 0.1 });
+  const { ref, inView: isInView } = useInView({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
+
   const [selectedProject, setSelectedProject] = useState(null);
 
   const projects = [
