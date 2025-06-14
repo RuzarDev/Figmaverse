@@ -1,13 +1,15 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 import { useRef } from 'react';
 import { Linkedin, Twitter, Dribbble } from 'lucide-react';
 
 const Team = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, threshold: 0.1 });
+  const { ref, inView: isInView } = useInView({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
 
   const team = [
     {
